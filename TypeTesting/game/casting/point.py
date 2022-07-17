@@ -1,9 +1,9 @@
 class Point:
     """A distance from a relative origin (0, 0)."""
-    
-    def __init__(self, x = 0, y = 0):
+
+    def __init__(self, x=0, y=0):
         """Constructs a new Point using the specified x and y values.
-        
+
         Args:
             x: An int representing the horizontal distance from the origin.
             y: An int representing the vertical distance from the origin.
@@ -30,14 +30,14 @@ class Point:
         Args:
             other: An instance of Point to compare.
 
-        Returns: 
+        Returns:
             True if both x and y are equal; false if otherwise.
         """
         return self._x == other.get_x() and self._y == other.get_y()
 
     def get_x(self):
         """Gets the horizontal distance.
-        
+
         Returns:
             An integer containing the x value or horizontal distance.
         """
@@ -45,7 +45,7 @@ class Point:
 
     def get_y(self):
         """Gets the vertical distance.
-        
+
         Returns:
             An integer containing the y value or vertical distance.
         """
@@ -57,7 +57,7 @@ class Point:
 
         Args:
             factor: A float containing the multiplication factor.
-            
+
         Returns:
             A new instance of Point.
         """

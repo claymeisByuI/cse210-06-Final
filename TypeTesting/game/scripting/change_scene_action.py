@@ -9,5 +9,5 @@ class ChangeSceneAction(Action):
         self._next_scene = next_scene
         
     def execute(self, cast, script, callback):
-        if self._keyboard_service.is_key_pressed(ENTER):
+        if self._keyboard_service.is_key_pressed(SPACE):
             callback.on_next(self._next_scene)

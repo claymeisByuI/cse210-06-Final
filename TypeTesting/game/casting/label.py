@@ -29,4 +29,4 @@ class Label(Actor):
         Returns:
             An instance of Text.
         """
-        return self._text    
+        return self._text

@@ -9,13 +9,25 @@ class Stats(Actor):
         """Constructs a new Stats."""
         super().__init__(debug)
         self._level = 1
-        self._lives = DEFAULT_LIVES
+        self._speed = START_SPEED
         self._score = 0
+        self._word_count = 0
 
-    def add_life(self):
-        """Adds one life."""
-        if self._lives < MAXIMUM_LIVES:
-            self._lives += 1 
+    def completed_word(self):
+        """
+        increments current word count
+        Returns:
+
+        """
+        self._word_count += 1
+
+    def get_word_count(self):
+        """
+        gets the current word count
+        Returns:
+
+        """
+        return self._word_count
 
     def add_points(self, points):
         """Adds the given points to the score.
@@ -24,6 +36,9 @@ class Stats(Actor):
             points: A number representing the points to add.
         """
         self._score += points
+
+    def get_speed(self):
+        return self._speed
 
     def get_level(self):
         """Gets the level.
@@ -49,17 +64,14 @@ class Stats(Actor):
         """
         return self._score
 
-    def lose_life(self):
-        """Removes one life."""
-        if self._lives > 0:
-            self._lives -= 1
-    
     def next_level(self):
         """Adds one level."""
         self._level += 1
+        self._speed += 3
+
 
     def reset(self):
         """Resets the stats back to their default values."""
         self._level = 1
-        self._lives = DEFAULT_LIVES
+        self._speed = START_SPEED
         self._score = 0
