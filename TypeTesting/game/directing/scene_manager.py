@@ -23,6 +23,7 @@ from game.scripting.move_challenger_action import MoveChallengerAction
 from game.scripting.control_typing_action import ControlTypingAction
 from game.scripting.solve_challenger_action import SolveChallengerAction
 from game.scripting.check_over_action import CheckOverAction
+from game.scripting.check_next_level_action import CheckNextLevelAction
 from game.services.raylib.raylib_audio_service import RaylibAudioService
 from game.services.raylib.raylib_keyboard_service import RaylibKeyboardService
 from game.services.raylib.raylib_physics_service import RaylibPhysicsService
@@ -51,6 +52,7 @@ class SceneManager:
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     CHECK_OVER_ACTION = CheckOverAction()
+    CHECK_NEXT_LEVEL_ACTION = CheckNextLevelAction()
 
     ALL_WORDS = []
 
@@ -91,6 +93,7 @@ class SceneManager:
     def _prepare_new_game(self, cast, script):
         self._add_stats(cast)
         self._add_score(cast)
+        self._add_words(cast)
         self._add_level(cast)
 
         self._add_dialog(cast, ENTER_TO_START)
@@ -108,9 +111,9 @@ class SceneManager:
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
         script.clear_actions(INPUT)
-        script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 2))
-        self._add_output_script(script)
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
+        self._add_output_script(script)
+        script.add_action(INPUT, TimedChangeSceneAction(IN_PLAY, 0))
 
     def _prepare_in_play(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
@@ -154,6 +157,13 @@ class SceneManager:
         position = Point(HUD_MARGIN, HUD_MARGIN)
         label = Label(text, position)
         cast.add_actor(LEVEL_GROUP, label)
+
+    def _add_words(self, cast):
+        cast.clear_actors(WORDS_GROUP)
+        text = Text(WORDS_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_RIGHT)
+        position = Point(SCREEN_WIDTH - HUD_MARGIN, HUD_MARGIN)
+        label = Label(text, position)
+        cast.add_actor(WORDS_GROUP, label)
 
     def _add_stats(self, cast):
         cast.clear_actors(STATS_GROUP)
@@ -211,5 +221,6 @@ class SceneManager:
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_CHALLENGER_ACTION)
         script.add_action(UPDATE, self.SOLVE_CHALLENGER_ACTION)
-        # script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.CHECK_NEXT_LEVEL_ACTION)
 

@@ -67,7 +67,7 @@ class Stats(Actor):
     def next_level(self):
         """Adds one level."""
         self._level += 1
-        self._speed += 3
+        self._speed += 1
 
 
     def reset(self):

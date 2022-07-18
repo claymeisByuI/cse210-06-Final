@@ -11,6 +11,4 @@ class MoveChallengerAction(Action):
         challengers = cast.get_actors(CHALLENGER_GROUP)
         for challenger in challengers:
             challenger.move_next()
-            if challenger.get_position().get_x() < 0:
-                print("Game ending")
-                callback.on_next(GAME_OVER)
+

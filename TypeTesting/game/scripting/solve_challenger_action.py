@@ -21,3 +21,4 @@ class SolveChallengerAction(Action):
                 stats.completed_word()
                 cast.remove_actor(CHALLENGER_GROUP, challenger)
                 callback.on_next(NEXT_WORD)
+
